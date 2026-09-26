@@ -1,6 +1,6 @@
 # HepatoIA — Cribado no invasivo de esteatosis hepática con aprendizaje automático
 
-Proyecto para ExpoCiencias 2026 / 15.º EJIEM. Instituto Tecnológico de Morelia, Ingeniería Biomédica.
+Proyecto de Ingeniería Biomédica — Instituto Tecnológico de Morelia.
 
 HepatoIA es un modelo de **apoyo a la decisión clínica**. Estima la severidad de la esteatosis hepática no alcohólica en **3 niveles** (`Normal`, `Leve_Moderada`, `Severa`) usando solo variables clínicas y de laboratorio de rutina, sin elastografía. Entrega probabilidades calibradas por clase y la contribución de cada variable a la predicción.
 
@@ -19,7 +19,7 @@ HepatoIA es un modelo de **apoyo a la decisión clínica**. Estima la severidad 
 | Todas las métricas (train / calibración / test) | [`artifacts/training_report.json`](artifacts/training_report.json) |
 | Los coeficientes del modelo entrenado | [`artifacts/hepatoia_model.json`](artifacts/hepatoia_model.json) |
 | Las figuras (matriz de confusión, calibración, importancia, correlaciones, pipeline) | [`reporte/`](reporte/) |
-| El artículo en extenso | [`docs/`](docs/) |
+| El artículo del proyecto | [`docs/Articulo_HepatoIA.docx`](docs/Articulo_HepatoIA.docx) |
 | Una demo en el navegador | [`interfaz_prueba.html`](interfaz_prueba.html) (descárgalo y ábrelo; no necesita servidor) |
 
 ---
@@ -134,7 +134,7 @@ El predictor acepta las 9 variables ya calculadas o los valores crudos de labora
 ├── artifacts/                    dataset final, modelo entrenado y reportes JSON
 ├── reporte/                      figuras y matriz de correlación
 ├── alternative_pipeline/         enfoque alternativo explorado (regresión de CAP + reglas clínicas)
-└── docs/                         artículo en extenso (.docx)
+└── docs/                         artículo del proyecto (.docx)
 ```
 
 ### Enfoque alternativo explorado

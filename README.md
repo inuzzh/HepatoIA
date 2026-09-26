@@ -19,7 +19,6 @@ HepatoIA es un modelo de **apoyo a la decisión clínica**. Estima la severidad 
 | Todas las métricas (train / calibración / test) | [`artifacts/training_report.json`](artifacts/training_report.json) |
 | Los coeficientes del modelo entrenado | [`artifacts/hepatoia_model.json`](artifacts/hepatoia_model.json) |
 | Las figuras (matriz de confusión, calibración, importancia, correlaciones, pipeline) | [`reporte/`](reporte/) |
-| El artículo del proyecto | [`docs/Articulo_HepatoIA.docx`](docs/Articulo_HepatoIA.docx) |
 | Una demo en el navegador | [`interfaz_prueba.html`](interfaz_prueba.html) (descárgalo y ábrelo; no necesita servidor) |
 
 ---
@@ -133,8 +132,7 @@ El predictor acepta las 9 variables ya calculadas o los valores crudos de labora
 ├── data/raw/                     archivos .xpt originales de NHANES (datos públicos)
 ├── artifacts/                    dataset final, modelo entrenado y reportes JSON
 ├── reporte/                      figuras y matriz de correlación
-├── alternative_pipeline/         enfoque alternativo explorado (regresión de CAP + reglas clínicas)
-└── docs/                         artículo del proyecto (.docx)
+└── alternative_pipeline/         enfoque alternativo explorado (regresión de CAP + reglas clínicas)
 ```
 
 ### Enfoque alternativo explorado

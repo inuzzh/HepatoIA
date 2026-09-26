@@ -1,0 +1,83 @@
+{
+  "dataset": "C:\\Users\\pau87\\Documents\\Hackaton\\Proyecto_1\\hepatoia_model\\artifacts\\hepatoia_final_dataset_v2.csv",
+  "n_rows": 11505,
+  "splits": {
+    "train": 9204,
+    "test": 2301
+  },
+  "metrics": {
+    "train": {
+      "rmse": 47.287895875356554,
+      "mae": 36.90589401430112,
+      "r2": 0.4333451343151634,
+      "n": 9204
+    },
+    "test": {
+      "rmse": 46.56468799393632,
+      "mae": 36.191458241815496,
+      "r2": 0.4424897918568702,
+      "n": 2301
+    }
+  },
+  "coefficient_table": [
+    {
+      "feature": "Waist_cm",
+      "standardized_coefficient": 27.660169036264083,
+      "direction": "raises_cap",
+      "absolute_strength": 27.660169036264083
+    },
+    {
+      "feature": "TyG_index",
+      "standardized_coefficient": 10.300368841604467,
+      "direction": "raises_cap",
+      "absolute_strength": 10.300368841604467
+    },
+    {
+      "feature": "AST_ALT_ratio",
+      "standardized_coefficient": -6.363146564816635,
+      "direction": "lowers_cap",
+      "absolute_strength": 6.363146564816635
+    },
+    {
+      "feature": "GGT",
+      "standardized_coefficient": 4.911121325060975,
+      "direction": "raises_cap",
+      "absolute_strength": 4.911121325060975
+    },
+    {
+      "feature": "NHHR",
+      "standardized_coefficient": 4.380782856968043,
+      "direction": "raises_cap",
+      "absolute_strength": 4.380782856968043
+    },
+    {
+      "feature": "TG_HDL_ratio",
+      "standardized_coefficient": -4.083348855871941,
+      "direction": "lowers_cap",
+      "absolute_strength": 4.083348855871941
+    },
+    {
+      "feature": "HDL_BMI_ratio",
+      "standardized_coefficient": -4.028048405506806,
+      "direction": "lowers_cap",
+      "absolute_strength": 4.028048405506806
+    },
+    {
+      "feature": "Age",
+      "standardized_coefficient": 3.6647701282794536,
+      "direction": "raises_cap",
+      "absolute_strength": 3.6647701282794536
+    },
+    {
+      "feature": "Uric_Acid",
+      "standardized_coefficient": 1.1430977819120185,
+      "direction": "raises_cap",
+      "absolute_strength": 1.1430977819120185
+    }
+  ],
+  "clinical_guardrails": [
+    "This regression estimates CAP (dB/m), not a diagnosis by itself.",
+    "CAP_dBm, LSM_kPa, steatosis grade, fibrosis grade, and SEQN are blocked as predictors.",
+    "Combine with the rule-based severity_rules.py classifier to get a clinical severity label."
+  ]
+}

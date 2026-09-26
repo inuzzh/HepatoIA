@@ -1,0 +1,135 @@
+{
+  "model_version": "hepatoia-cap-linreg-v0.1",
+  "model_type": "regularized_linear_regression_numpy",
+  "target": {
+    "column": "CAP_dBm",
+    "unit": "dB/m",
+    "definition": "Controlled Attenuation Parameter (CAP) from VCTE/FibroScan, continuous estimate."
+  },
+  "forbidden_predictors": [
+    "CAP_dBm",
+    "Fibrosis_Grade_LSM",
+    "LSM_kPa",
+    "SEQN",
+    "Steatosis_Grade_CAP"
+  ],
+  "preprocessor": {
+    "features": [
+      "Waist_cm",
+      "TG_HDL_ratio",
+      "GGT",
+      "Uric_Acid",
+      "AST_ALT_ratio",
+      "TyG_index",
+      "Age",
+      "HDL_BMI_ratio",
+      "NHHR"
+    ],
+    "log1p_features": [
+      "GGT",
+      "NHHR",
+      "TG_HDL_ratio"
+    ],
+    "medians": {
+      "Waist_cm": 98.4,
+      "TG_HDL_ratio": 1.0394234172777792,
+      "GGT": 3.044522437723423,
+      "Uric_Acid": 5.1,
+      "AST_ALT_ratio": 1.096774193548387,
+      "TyG_index": 8.456009025376824,
+      "Age": 51.0,
+      "HDL_BMI_ratio": 1.7586206896551724,
+      "NHHR": 1.2555601731164292
+    },
+    "means": {
+      "Waist_cm": 99.59449152542372,
+      "TG_HDL_ratio": 1.0727797030592885,
+      "GGT": 3.1081289667757517,
+      "Uric_Acid": 5.221621034332899,
+      "AST_ALT_ratio": 1.15466224179674,
+      "TyG_index": 8.473060167997117,
+      "Age": 49.82887874837027,
+      "HDL_BMI_ratio": 1.907288850916731,
+      "NHHR": 1.2674337915765588
+    },
+    "stds": {
+      "Waist_cm": 16.724825246381016,
+      "TG_HDL_ratio": 0.3400948793893028,
+      "GGT": 0.6012113455032968,
+      "Uric_Acid": 1.3599184718676611,
+      "AST_ALT_ratio": 0.4172459774128725,
+      "TyG_index": 0.4733568422398209,
+      "Age": 18.439947648443717,
+      "HDL_BMI_ratio": 0.770788107260948,
+      "NHHR": 0.2939880464228621
+    }
+  },
+  "bias": 261.25717079530637,
+  "weights": [
+    27.660169036264083,
+    -4.083348855871941,
+    4.911121325060975,
+    1.1430977819120185,
+    -6.363146564816635,
+    10.300368841604467,
+    3.6647701282794536,
+    -4.028048405506806,
+    4.380782856968043
+  ],
+  "coefficient_table": [
+    {
+      "feature": "Waist_cm",
+      "standardized_coefficient": 27.660169036264083,
+      "direction": "raises_cap",
+      "absolute_strength": 27.660169036264083
+    },
+    {
+      "feature": "TyG_index",
+      "standardized_coefficient": 10.300368841604467,
+      "direction": "raises_cap",
+      "absolute_strength": 10.300368841604467
+    },
+    {
+      "feature": "AST_ALT_ratio",
+      "standardized_coefficient": -6.363146564816635,
+      "direction": "lowers_cap",
+      "absolute_strength": 6.363146564816635
+    },
+    {
+      "feature": "GGT",
+      "standardized_coefficient": 4.911121325060975,
+      "direction": "raises_cap",
+      "absolute_strength": 4.911121325060975
+    },
+    {
+      "feature": "NHHR",
+      "standardized_coefficient": 4.380782856968043,
+      "direction": "raises_cap",
+      "absolute_strength": 4.380782856968043
+    },
+    {
+      "feature": "TG_HDL_ratio",
+      "standardized_coefficient": -4.083348855871941,
+      "direction": "lowers_cap",
+      "absolute_strength": 4.083348855871941
+    },
+    {
+      "feature": "HDL_BMI_ratio",
+      "standardized_coefficient": -4.028048405506806,
+      "direction": "lowers_cap",
+      "absolute_strength": 4.028048405506806
+    },
+    {
+      "feature": "Age",
+      "standardized_coefficient": 3.6647701282794536,
+      "direction": "raises_cap",
+      "absolute_strength": 3.6647701282794536
+    },
+    {
+      "feature": "Uric_Acid",
+      "standardized_coefficient": 1.1430977819120185,
+      "direction": "raises_cap",
+      "absolute_strength": 1.1430977819120185
+    }
+  ]
+}

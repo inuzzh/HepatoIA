@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HepatoIA - Prueba del modelo</title>
+<style>
+  :root {
+    --bg: #faf7f6;
+    --card: #ffffff;
+    --text: #241521;
+    --muted: #7c6a72;
+    --border: #e8dfe1;
+    --accent: #701445;
+    --accent-dark: #500d31;
+    --accent-bright: #c81d5b;
+    --gold: #bc9768;
+    --danger: #dc2626;
+    --danger-bg: #fef2f2;
+    --ok: #16a34a;
+    --ok-bg: #f0fdf4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 0 16px 60px;
+  }
+  .brand-bar { height: 6px; background: linear-gradient(90deg, var(--accent) 0%, var(--accent-bright) 55%, var(--gold) 100%); margin: 0 -16px 24px; }
+  .wrap { max-width: 820px; margin: 0 auto; }
+  h1 { font-size: 22px; margin-bottom: 4px; color: var(--accent); }
+  .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .card h2 { font-size: 15px; margin: 0 0 14px; color: var(--accent); text-transform: uppercase; letter-spacing: .04em; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; }
+  label { display: block; font-size: 13px; margin-bottom: 5px; color: var(--text); font-weight: 600; }
+  .hint { font-weight: 400; color: var(--muted); font-size: 11px; display: block; margin-top: 2px; }
+  input {
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fff;
+    color: var(--text);
+  }
+  input:focus { outline: 2px solid var(--accent-bright); border-color: transparent; }
+  .actions { display: flex; gap: 10px; align-items: center; margin-top: 18px; flex-wrap: wrap; }
+  button {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 11px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button:hover { background: var(--accent-dark); }
+  button.secondary { background: #fff; color: var(--accent); border: 1px solid var(--accent); }
+  button.secondary:hover { background: #fdf2f6; opacity: 1; }
+  .presets { display: flex; gap: 8px; flex-wrap: wrap; }
+  .presets button { padding: 7px 12px; font-size: 12.5px; }
+
+  #result { display: none; }
+  .result-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .prob { font-size: 40px; font-weight: 700; color: var(--accent); }
+  .badge {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .badge.normal { background: var(--ok-bg); color: var(--ok); }
+  .badge.esteatosis { background: var(--danger-bg); color: var(--danger); }
+  .threshold-note { color: var(--muted); font-size: 12.5px; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 13px; }
+  th, td { text-align: left; padding: 7px 4px; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; }
+  .contrib-bar-wrap { display: flex; align-items: center; gap: 8px; }
+  .contrib-bar { height: 8px; border-radius: 4px; background: var(--border); flex: 1; position: relative; overflow: hidden; }
+  .contrib-fill { height: 100%; border-radius: 4px; }
+  .raises { background: var(--danger); }
+  .lowers { background: var(--ok); }
+  .imputed-note { margin-top: 12px; font-size: 12.5px; color: var(--muted); background: #fffbeb; border: 1px solid #fde68a; padding: 8px 10px; border-radius: 8px; }
+  .disclaimer {
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+    margin-top: 6px;
+  }
+</style>
+</head>
+<body>
+<div class="brand-bar"></div>
+<div class="wrap">
+  <h1>HepatoIA &mdash; prueba del modelo de cribado de esteatosis</h1>
+  <div class="subtitle">
+    Modelo: <code id="modelVersion">-</code> &middot; corre 100% en tu navegador, no envia datos a ningun servidor.
+  </div>
+
+  <div class="card">
+    <h2>Casos de ejemplo</h2>
+    <div class="presets">
+      <button type="button" class="secondary" data-preset="sano">Joven sano</button>
+      <button type="button" class="secondary" data-preset="mayor">Adulto mayor normal</button>
+      <button type="button" class="secondary" data-preset="metabolico">Sindrome metabolico</button>
+      <button type="button" class="secondary" data-preset="severo">Obesidad severa</button>
+      <button type="button" class="secondary" data-preset="limpiar">Limpiar campos</button>
+    </div>
+  </div>
+
+  <form id="patientForm">
+    <div class="card">
+      <h2>Datos basicos</h2>
+      <div class="grid">
+        <div>
+          <label>Edad (años)<span class="hint">Age</span></label>
+          <input type="number" id="Age" step="1" min="0">
+        </div>
+        <div>
+          <label>Cintura (cm)<span class="hint">Waist_cm</span></label>
+          <input type="number" id="Waist_cm" step="0.1" min="0">
+        </div>
+        <div>
+          <label>BMI (kg/m²)<span class="hint">para derivar HDL_BMI_ratio</span></label>
+          <input type="number" id="BMI" step="0.1" min="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Laboratorio</h2>
+      <div class="grid">
+        <div>
+          <label>GGT (U/L)</label>
+          <input type="number" id="GGT" step="0.1" min="0">
+        </div>
+        <div>
+          <label>Acido urico (mg/dL)<span class="hint">Uric_Acid</span></label>
+          <input type="number" id="Uric_Acid" step="0.1" min="0">
+        </div>
+        <div>
+          <label>AST (U/L)</label>
+          <input type="number" id="AST" step="0.1" min="0">
+        </div>
+        <div>
+          <label>ALT (U/L)</label>
+          <input type="number" id="ALT" step="0.1" min="0">
+        </div>
+        <div>
+          <label>Trigliceridos (mg/dL)</label>
+          <input type="number" id="Triglycerides" step="0.1" min="0">
+        </div>
+        <div>
+          <label>Glucosa (mg/dL)</label>
+          <input type="number" id="Glucose" step="0.1" min="0">
+        </div>
+        <div>
+          <label>HDL (mg/dL)</label>
+          <input type="number" id="HDL" step="0.1" min="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="submit">Predecir</button>
+      <span style="color:var(--muted); font-size:12.5px;">Los campos vacios se rellenan con la mediana del set de entrenamiento.</span>
+    </div>
+  </form>
+
+  <div class="card" id="result">
+    <div class="result-header">
+      <div>
+        <div class="prob" id="probValue">-</div>
+        <div class="threshold-note" id="thresholdNote"></div>
+      </div>
+      <span class="badge" id="classBadge">-</span>
+    </div>
+
+    <div id="imputedNote"></div>
+
+    <table>
+      <thead>
+        <tr><th>Variable</th><th>Aporte (log-odds)</th><th style="width:40%">Direccion</th></tr>
+      </thead>
+      <tbody id="contribBody"></tbody>
+    </table>
+  </div>
+
+  <div class="disclaimer">
+    Esto es apoyo de cribado no invasivo, no un diagnostico autonomo. Debe ser interpretado por personal medico.
+    Modelo interno sin validacion externa &mdash; ver MODEL_CARD.md.
+  </div>
+</div>
+
+<script>
+// Modelo entrenado embebido desde artifacts/hepatoia_model.json
+// Si reentrenas el modelo, vuelve a copiar el contenido de ese archivo aqui.
+const MODEL = {
+  "model_version": "hepatoia-steatosis-logreg-v0.1",
+  "target": {
+    "positive_class": "Esteatosis",
+    "negative_class": "S0_Normal"
+  },
+  "preprocessor": {
+    "features": ["Waist_cm", "TG_HDL_ratio", "GGT", "Uric_Acid", "AST_ALT_ratio", "TyG_index", "Age", "HDL_BMI_ratio"],
+    "log1p_features": ["GGT", "TG_HDL_ratio"],
+    "medians": {
+      "Waist_cm": 98.8, "TG_HDL_ratio": 1.138537910248559, "GGT": 3.091042453358316,
+      "Uric_Acid": 5.3, "AST_ALT_ratio": 1.0769230769230769, "TyG_index": 8.570022776944167,
+      "Age": 50.0, "HDL_BMI_ratio": 1.7647058823529411
+    },
+    "means": {
+      "Waist_cm": 100.16922386720503, "TG_HDL_ratio": 1.2241514428284799, "GGT": 3.181914367161474,
+      "Uric_Acid": 5.399214894571557, "AST_ALT_ratio": 1.1352057445827433, "TyG_index": 8.633532600016158,
+      "Age": 49.12673844773441, "HDL_BMI_ratio": 1.9415720285302567
+    },
+    "stds": {
+      "Waist_cm": 16.977726135362243, "TG_HDL_ratio": 0.5105630519863057, "GGT": 0.6573691394222728,
+      "Uric_Acid": 1.4782866335889597, "AST_ALT_ratio": 0.42111243988976144, "TyG_index": 0.6454332549731815,
+      "Age": 17.93505176533552, "HDL_BMI_ratio": 0.8495968753865093
+    }
+  },
+  "bias": 0.1323170772729882,
+  "weights": [0.8650623339307019, 0.06206997109532904, 0.1767348199060008, 0.07783470138827854, -0.19492765276910393, 0.4042574921894466, 0.14320962445392574, -0.16914431897084614],
+  "calibrator": { "slope": 1.0930707476032633, "intercept": 0.3147914591015107 },
+  "decision_threshold": 0.5916321878279608
+};
+
+const PRESETS = {
+  sano: { Age: 28, Waist_cm: 74, GGT: 15, Uric_Acid: 4.2, AST: 18, ALT: 16, Triglycerides: 70, Glucose: 85, HDL: 62, BMI: 21.5 },
+  mayor: { Age: 70, Waist_cm: 85, GGT: 20, Uric_Acid: 5.0, AST: 22, ALT: 20, Triglycerides: 100, Glucose: 90, HDL: 55, BMI: 24 },
+  metabolico: { Age: 55, Waist_cm: 118, GGT: 95, Uric_Acid: 8.1, AST: 60, ALT: 85, Triglycerides: 320, Glucose: 160, HDL: 28, BMI: 34.5 },
+  severo: { Age: 62, Waist_cm: 140, GGT: 180, Uric_Acid: 9.5, AST: 90, ALT: 130, Triglycerides: 450, Glucose: 210, HDL: 22, BMI: 42 }
+};
+
+document.getElementById("modelVersion").textContent = MODEL.model_version;
+
+function sigmoid(z) {
+  z = Math.max(-40, Math.min(40, z));
+  return 1 / (1 + Math.exp(-z));
+}
+
+function getFormValues() {
+  const ids = ["Age", "Waist_cm", "BMI", "GGT", "Uric_Acid", "AST", "ALT", "Triglycerides", "Glucose", "HDL"];
+  const values = {};
+  for (const id of ids) {
+    const raw = document.getElementById(id).value;
+    if (raw !== "") values[id] = parseFloat(raw);
+  }
+  return values;
+}
+
+function computeDerivedInputs(values) {
+  const result = { ...values };
+  if (result.TG_HDL_ratio === undefined && result.Triglycerides !== undefined && result.HDL !== undefined) {
+    result.TG_HDL_ratio = result.Triglycerides / result.HDL;
+  }
+  if (result.AST_ALT_ratio === undefined && result.AST !== undefined && result.ALT !== undefined) {
+    result.AST_ALT_ratio = result.ALT ? result.AST / result.ALT : NaN;
+  }
+  if (result.TyG_index === undefined && result.Triglycerides !== undefined && result.Glucose !== undefined) {
+    result.TyG_index = Math.log((result.Triglycerides * result.Glucose) / 2);
+  }
+  if (result.HDL_BMI_ratio === undefined && result.HDL !== undefined && result.BMI !== undefined) {
+    result.HDL_BMI_ratio = result.BMI ? result.HDL / result.BMI : NaN;
+  }
+  return result;
+}
+
+function transformOne(rawValues, model) {
+  const values = computeDerivedInputs(rawValues);
+  const prep = model.preprocessor;
+  const x = [];
+  const imputed = [];
+  for (const feature of prep.features) {
+    let v = values[feature];
+    if (v === undefined || v === null || Number.isNaN(v)) {
+      v = prep.medians[feature];
+      imputed.push(feature);
+    }
+    if (prep.log1p_features.includes(feature)) {
+      v = Math.log1p(Math.max(0, v));
+    }
+    x.push((v - prep.means[feature]) / prep.stds[feature]);
+  }
+  return { x, imputed };
+}
+
+function predict(rawValues, model) {
+  const { x, imputed } = transformOne(rawValues, model);
+  const weights = model.weights;
+  let rawLogit = model.bias;
+  for (let i = 0; i < x.length; i++) rawLogit += x[i] * weights[i];
+  const calibratedLogit = model.calibrator.slope * rawLogit + model.calibrator.intercept;
+  const probability = sigmoid(calibratedLogit);
+  const threshold = model.decision_threshold;
+
+  const contributions = model.preprocessor.features.map((feature, i) => ({
+    feature,
+    contribution: x[i] * weights[i]
+  }));
+  contributions.sort((a, b) => Math.abs(b.contribution) - Math.abs(a.contribution));
+
+  return {
+    probability,
+    classification: probability >= threshold ? model.target.positive_class : model.target.negative_class,
+    threshold,
+    contributions,
+    imputed
+  };
+}
+
+function applyPreset(name) {
+  if (name === "limpiar") {
+    document.getElementById("patientForm").reset();
+    document.getElementById("result").style.display = "none";
+    return;
+  }
+  const preset = PRESETS[name];
+  if (!preset) return;
+  for (const [key, value] of Object.entries(preset)) {
+    const el = document.getElementById(key);
+    if (el) el.value = value;
+  }
+  document.getElementById("patientForm").requestSubmit();
+}
+
+document.querySelectorAll("[data-preset]").forEach(btn => {
+  btn.addEventListener("click", () => applyPreset(btn.dataset.preset));
+});
+
+document.getElementById("patientForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const rawValues = getFormValues();
+  const result = predict(rawValues, MODEL);
+
+  const resultCard = document.getElementById("result");
+  resultCard.style.display = "block";
+
+  const probPct = (result.probability * 100).toFixed(1);
+  document.getElementById("probValue").textContent = probPct + "%";
+  document.getElementById("thresholdNote").textContent =
+    "Umbral de decision: " + (result.threshold * 100).toFixed(1) + "%";
+
+  const badge = document.getElementById("classBadge");
+  const isPositive = result.classification === MODEL.target.positive_class;
+  badge.textContent = isPositive ? "Esteatosis" : "Normal";
+  badge.className = "badge " + (isPositive ? "esteatosis" : "normal");
+
+  const imputedNote = document.getElementById("imputedNote");
+  if (result.imputed.length > 0) {
+    imputedNote.className = "imputed-note";
+    imputedNote.textContent = "Variables imputadas con la mediana (no ingresadas o incompletas): " + result.imputed.join(", ");
+  } else {
+    imputedNote.textContent = "";
+    imputedNote.className = "";
+  }
+
+  const maxAbs = Math.max(...result.contributions.map(c => Math.abs(c.contribution)), 0.0001);
+  const tbody = document.getElementById("contribBody");
+  tbody.innerHTML = "";
+  for (const c of result.contributions) {
+    const tr = document.createElement("tr");
+    const raises = c.contribution > 0;
+    const widthPct = (Math.abs(c.contribution) / maxAbs) * 100;
+    tr.innerHTML = `
+      <td>${c.feature}</td>
+      <td>${c.contribution.toFixed(3)}</td>
+      <td>
+        <div class="contrib-bar-wrap">
+          <div class="contrib-bar"><div class="contrib-fill ${raises ? "raises" : "lowers"}" style="width:${widthPct}%"></div></div>
+          <span style="font-size:11px;color:var(--muted);white-space:nowrap;">${raises ? "sube riesgo" : "baja riesgo"}</span>
+        </div>
+      </td>`;
+    tbody.appendChild(tr);
+  }
+});
+</script>
+</body>
+</html>

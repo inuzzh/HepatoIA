@@ -1,0 +1,335 @@
+{
+  "dataset": "C:\\Users\\pau87\\Documents\\Hackaton\\Proyecto_1\\hepatoia_model\\artifacts\\hepatoia_final_dataset_v2.csv",
+  "n_rows": 11505,
+  "class_counts": {
+    "Normal": 5057,
+    "Leve_Moderada": 2146,
+    "Severa": 4302
+  },
+  "splits": {
+    "train": 6904,
+    "calibration": 2301,
+    "test": 2300
+  },
+  "metrics": {
+    "train": {
+      "accuracy": 0.6165990730011588,
+      "macro_auc": 0.7755189088250299,
+      "macro_precision": 0.5760638159488978,
+      "macro_sensitivity_recall": 0.5700349574582271,
+      "macro_specificity": 0.8122733080301892,
+      "macro_f1": 0.5699671344695026,
+      "brier_score": 0.49276818415601004,
+      "per_class": {
+        "Normal": {
+          "auc": 0.8395123995237438,
+          "precision": 0.7617969044922612,
+          "sensitivity_recall": 0.6651285431773236,
+          "specificity": 0.8369509043927649,
+          "f1": 0.7101882808375858,
+          "confusion_matrix": {
+            "tn": 3239,
+            "fp": 631,
+            "fn": 1016,
+            "tp": 2018
+          }
+        },
+        "Leve_Moderada": {
+          "auc": 0.6421194546194546,
+          "precision": 0.26866549088771313,
+          "sensitivity_recall": 0.3548136645962733,
+          "specificity": 0.7784900284900285,
+          "f1": 0.30578788892606223,
+          "confusion_matrix": {
+            "tn": 4372,
+            "fp": 1244,
+            "fn": 831,
+            "tp": 457
+          }
+        },
+        "Severa": {
+          "auc": 0.8449248723318915,
+          "precision": 0.6977290524667189,
+          "sensitivity_recall": 0.6901626646010844,
+          "specificity": 0.8213789912077741,
+          "f1": 0.6939252336448598,
+          "confusion_matrix": {
+            "tn": 3550,
+            "fp": 772,
+            "fn": 800,
+            "tp": 1782
+          }
+        }
+      },
+      "confusion_matrix": {
+        "labels": [
+          "Normal",
+          "Leve_Moderada",
+          "Severa"
+        ],
+        "matrix": [
+          [
+            2018,
+            672,
+            344
+          ],
+          [
+            403,
+            457,
+            428
+          ],
+          [
+            228,
+            572,
+            1782
+          ]
+        ]
+      }
+    },
+    "calibration": {
+      "accuracy": 0.5984354628422425,
+      "macro_auc": 0.7582394794068916,
+      "macro_precision": 0.5544707920123867,
+      "macro_sensitivity_recall": 0.5462157548102948,
+      "macro_specificity": 0.8029490516861637,
+      "macro_f1": 0.5478382196744257,
+      "brier_score": 0.5081032189365431,
+      "per_class": {
+        "Normal": {
+          "auc": 0.8359737456189037,
+          "precision": 0.7575757575757576,
+          "sensitivity_recall": 0.6669960474308301,
+          "specificity": 0.8324282389449186,
+          "f1": 0.7094062007356805,
+          "confusion_matrix": {
+            "tn": 1073,
+            "fp": 216,
+            "fn": 337,
+            "tp": 675
+          }
+        },
+        "Leve_Moderada": {
+          "auc": 0.6184228876536569,
+          "precision": 0.23877917414721722,
+          "sensitivity_recall": 0.31002331002331,
+          "specificity": 0.7735042735042735,
+          "f1": 0.26977687626774843,
+          "confusion_matrix": {
+            "tn": 1448,
+            "fp": 424,
+            "fn": 296,
+            "tp": 133
+          }
+        },
+        "Severa": {
+          "auc": 0.8203218049481142,
+          "precision": 0.6670574443141852,
+          "sensitivity_recall": 0.6616279069767442,
+          "specificity": 0.8029146426092991,
+          "f1": 0.6643315820198483,
+          "confusion_matrix": {
+            "tn": 1157,
+            "fp": 284,
+            "fn": 291,
+            "tp": 569
+          }
+        }
+      },
+      "confusion_matrix": {
+        "labels": [
+          "Normal",
+          "Leve_Moderada",
+          "Severa"
+        ],
+        "matrix": [
+          [
+            675,
+            218,
+            119
+          ],
+          [
+            131,
+            133,
+            165
+          ],
+          [
+            85,
+            206,
+            569
+          ]
+        ]
+      }
+    },
+    "test": {
+      "accuracy": 0.6334782608695653,
+      "macro_auc": 0.7915729601810432,
+      "macro_precision": 0.5878158252328112,
+      "macro_sensitivity_recall": 0.584463094393396,
+      "macro_specificity": 0.8198353832274208,
+      "macro_f1": 0.5838670390465878,
+      "brier_score": 0.47901909299880274,
+      "per_class": {
+        "Normal": {
+          "auc": 0.8536026133017798,
+          "precision": 0.7791479820627802,
+          "sensitivity_recall": 0.6874381800197824,
+          "specificity": 0.8471683475562451,
+          "f1": 0.7304256437204414,
+          "confusion_matrix": {
+            "tn": 1092,
+            "fp": 197,
+            "fn": 316,
+            "tp": 695
+          }
+        },
+        "Leve_Moderada": {
+          "auc": 0.6654282827452256,
+          "precision": 0.28785046728971964,
+          "sensitivity_recall": 0.358974358974359,
+          "specificity": 0.7963655799037948,
+          "f1": 0.3195020746887967,
+          "confusion_matrix": {
+            "tn": 1490,
+            "fp": 381,
+            "fn": 275,
+            "tp": 154
+          }
+        },
+        "Severa": {
+          "auc": 0.855687984496124,
+          "precision": 0.6964490263459335,
+          "sensitivity_recall": 0.7069767441860465,
+          "specificity": 0.8159722222222222,
+          "f1": 0.7016733987305251,
+          "confusion_matrix": {
+            "tn": 1175,
+            "fp": 265,
+            "fn": 252,
+            "tp": 608
+          }
+        }
+      },
+      "confusion_matrix": {
+        "labels": [
+          "Normal",
+          "Leve_Moderada",
+          "Severa"
+        ],
+        "matrix": [
+          [
+            695,
+            197,
+            119
+          ],
+          [
+            129,
+            154,
+            146
+          ],
+          [
+            68,
+            184,
+            608
+          ]
+        ]
+      }
+    }
+  },
+  "coefficient_table": [
+    {
+      "feature": "Waist_cm",
+      "coefficients_by_class": {
+        "Normal": -0.6121028587448463,
+        "Leve_Moderada": 0.04607643280642804,
+        "Severa": 0.5660264259384187
+      },
+      "strongest_class": "Normal",
+      "absolute_strength": 0.6121028587448463
+    },
+    {
+      "feature": "HDL_BMI_ratio",
+      "coefficients_by_class": {
+        "Normal": 0.1783793365370878,
+        "Leve_Moderada": 0.04919603401629036,
+        "Severa": -0.227575370553378
+      },
+      "strongest_class": "Severa",
+      "absolute_strength": 0.227575370553378
+    },
+    {
+      "feature": "AST_ALT_ratio",
+      "coefficients_by_class": {
+        "Normal": 0.14401750607163022,
+        "Leve_Moderada": 0.0595911830623919,
+        "Severa": -0.2036086891340222
+      },
+      "strongest_class": "Severa",
+      "absolute_strength": 0.2036086891340222
+    },
+    {
+      "feature": "TyG_index",
+      "coefficients_by_class": {
+        "Normal": -0.15362589884488326,
+        "Leve_Moderada": -0.040949614792574696,
+        "Severa": 0.19457551363745815
+      },
+      "strongest_class": "Severa",
+      "absolute_strength": 0.19457551363745815
+    },
+    {
+      "feature": "GGT",
+      "coefficients_by_class": {
+        "Normal": -0.1396192152978257,
+        "Leve_Moderada": -0.005320317131939798,
+        "Severa": 0.14493953242976562
+      },
+      "strongest_class": "Severa",
+      "absolute_strength": 0.14493953242976562
+    },
+    {
+      "feature": "Age",
+      "coefficients_by_class": {
+        "Normal": -0.13733390118074007,
+        "Leve_Moderada": 0.016157571188654577,
+        "Severa": 0.12117632999208575
+      },
+      "strongest_class": "Normal",
+      "absolute_strength": 0.13733390118074007
+    },
+    {
+      "feature": "NHHR",
+      "coefficients_by_class": {
+        "Normal": -0.08750560031757401,
+        "Leve_Moderada": 0.017512076652161635,
+        "Severa": 0.06999352366541256
+      },
+      "strongest_class": "Normal",
+      "absolute_strength": 0.08750560031757401
+    },
+    {
+      "feature": "Uric_Acid",
+      "coefficients_by_class": {
+        "Normal": -0.024406129691086548,
+        "Leve_Moderada": -0.015090705451067037,
+        "Severa": 0.03949683514215356
+      },
+      "strongest_class": "Severa",
+      "absolute_strength": 0.03949683514215356
+    },
+    {
+      "feature": "TG_HDL_ratio",
+      "coefficients_by_class": {
+        "Normal": -0.008635335726712308,
+        "Leve_Moderada": 0.03661325715950625,
+        "Severa": -0.0279779214327939
+      },
+      "strongest_class": "Leve_Moderada",
+      "absolute_strength": 0.03661325715950625
+    }
+  ],
+  "clinical_guardrails": [
+    "This is non-invasive clinical decision support, not an autonomous diagnosis.",
+    "CAP_dBm, LSM_kPa, steatosis grade, fibrosis grade, and SEQN are blocked as predictors.",
+    "The output is a calibrated severity classification: Normal / Leve_Moderada / Severa."
+  ]
+}

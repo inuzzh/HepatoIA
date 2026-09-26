@@ -1,0 +1,225 @@
+{
+  "model_version": "hepatoia-severity3-softmax-v0.1",
+  "model_type": "regularized_multinomial_logistic_regression_numpy",
+  "target": {
+    "column": "Steatosis_Grade_CAP",
+    "classes": [
+      "Normal",
+      "Leve_Moderada",
+      "Severa"
+    ],
+    "grade_to_class": {
+      "S0_Normal": 0,
+      "S1_Leve": 1,
+      "S2_Moderada": 1,
+      "S3_Severa": 2
+    },
+    "definition": "3-tier severity: Normal (S0), Leve_Moderada (S1+S2), Severa (S3)."
+  },
+  "forbidden_predictors": [
+    "CAP_dBm",
+    "Fibrosis_Grade_LSM",
+    "LSM_kPa",
+    "SEQN",
+    "Steatosis_Grade_CAP"
+  ],
+  "preprocessor": {
+    "features": [
+      "Waist_cm",
+      "TG_HDL_ratio",
+      "GGT",
+      "Uric_Acid",
+      "AST_ALT_ratio",
+      "TyG_index",
+      "Age",
+      "HDL_BMI_ratio",
+      "NHHR"
+    ],
+    "log1p_features": [
+      "GGT",
+      "NHHR",
+      "TG_HDL_ratio"
+    ],
+    "medians": {
+      "Waist_cm": 98.7,
+      "TG_HDL_ratio": 1.0409551216695982,
+      "GGT": 3.044522437723423,
+      "Uric_Acid": 5.1,
+      "AST_ALT_ratio": 1.0909090909090908,
+      "TyG_index": 8.45457282943457,
+      "Age": 51.0,
+      "HDL_BMI_ratio": 1.7477318220812643,
+      "NHHR": 1.2572173188447482
+    },
+    "means": {
+      "Waist_cm": 99.77014774044032,
+      "TG_HDL_ratio": 1.0706534513258208,
+      "GGT": 3.103152570011127,
+      "Uric_Acid": 5.227303012746234,
+      "AST_ALT_ratio": 1.1496533264971416,
+      "TyG_index": 8.4680938318279,
+      "Age": 49.87833140208575,
+      "HDL_BMI_ratio": 1.9018559168125193,
+      "NHHR": 1.2673242938782545
+    },
+    "stds": {
+      "Waist_cm": 16.684696802584202,
+      "TG_HDL_ratio": 0.3341286266179216,
+      "GGT": 0.5929315340960791,
+      "Uric_Acid": 1.3899908811867612,
+      "AST_ALT_ratio": 0.41153941172949327,
+      "TyG_index": 0.46505985921531273,
+      "Age": 18.397077542525604,
+      "HDL_BMI_ratio": 0.7717732809896655,
+      "NHHR": 0.28965838747937517
+    }
+  },
+  "bias": [
+    -0.039462891615213505,
+    0.2191972805974729,
+    -0.17973438898225885
+  ],
+  "weights": [
+    [
+      -0.6121028587448463,
+      0.04607643280642804,
+      0.5660264259384187
+    ],
+    [
+      -0.008635335726712308,
+      0.03661325715950625,
+      -0.0279779214327939
+    ],
+    [
+      -0.1396192152978257,
+      -0.005320317131939798,
+      0.14493953242976562
+    ],
+    [
+      -0.024406129691086548,
+      -0.015090705451067037,
+      0.03949683514215356
+    ],
+    [
+      0.14401750607163022,
+      0.0595911830623919,
+      -0.2036086891340222
+    ],
+    [
+      -0.15362589884488326,
+      -0.040949614792574696,
+      0.19457551363745815
+    ],
+    [
+      -0.13733390118074007,
+      0.016157571188654577,
+      0.12117632999208575
+    ],
+    [
+      0.1783793365370878,
+      0.04919603401629036,
+      -0.227575370553378
+    ],
+    [
+      -0.08750560031757401,
+      0.017512076652161635,
+      0.06999352366541256
+    ]
+  ],
+  "calibrator": {
+    "method": "temperature_scaling",
+    "temperature": 0.8789063622931268
+  },
+  "coefficient_table": [
+    {
+      "feature": "Waist_cm",
+      "coefficients_by_class": {
+        "Normal": -0.6121028587448463,
+        "Leve_Moderada": 0.04607643280642804,
+        "Severa": 0.5660264259384187
+      },
+      "strongest_class": "Normal",
+      "absolute_strength": 0.6121028587448463
+    },
+    {
+      "feature": "HDL_BMI_ratio",
+      "coefficients_by_class": {
+        "Normal": 0.1783793365370878,
+        "Leve_Moderada": 0.04919603401629036,
+        "Severa": -0.227575370553378
+      },
+      "strongest_class": "Severa",
+      "absolute_strength": 0.227575370553378
+    },
+    {
+      "feature": "AST_ALT_ratio",
+      "coefficients_by_class": {
+        "Normal": 0.14401750607163022,
+        "Leve_Moderada": 0.0595911830623919,
+        "Severa": -0.2036086891340222
+      },
+      "strongest_class": "Severa",
+      "absolute_strength": 0.2036086891340222
+    },
+    {
+      "feature": "TyG_index",
+      "coefficients_by_class": {
+        "Normal": -0.15362589884488326,
+        "Leve_Moderada": -0.040949614792574696,
+        "Severa": 0.19457551363745815
+      },
+      "strongest_class": "Severa",
+      "absolute_strength": 0.19457551363745815
+    },
+    {
+      "feature": "GGT",
+      "coefficients_by_class": {
+        "Normal": -0.1396192152978257,
+        "Leve_Moderada": -0.005320317131939798,
+        "Severa": 0.14493953242976562
+      },
+      "strongest_class": "Severa",
+      "absolute_strength": 0.14493953242976562
+    },
+    {
+      "feature": "Age",
+      "coefficients_by_class": {
+        "Normal": -0.13733390118074007,
+        "Leve_Moderada": 0.016157571188654577,
+        "Severa": 0.12117632999208575
+      },
+      "strongest_class": "Normal",
+      "absolute_strength": 0.13733390118074007
+    },
+    {
+      "feature": "NHHR",
+      "coefficients_by_class": {
+        "Normal": -0.08750560031757401,
+        "Leve_Moderada": 0.017512076652161635,
+        "Severa": 0.06999352366541256
+      },
+      "strongest_class": "Normal",
+      "absolute_strength": 0.08750560031757401
+    },
+    {
+      "feature": "Uric_Acid",
+      "coefficients_by_class": {
+        "Normal": -0.024406129691086548,
+        "Leve_Moderada": -0.015090705451067037,
+        "Severa": 0.03949683514215356
+      },
+      "strongest_class": "Severa",
+      "absolute_strength": 0.03949683514215356
+    },
+    {
+      "feature": "TG_HDL_ratio",
+      "coefficients_by_class": {
+        "Normal": -0.008635335726712308,
+        "Leve_Moderada": 0.03661325715950625,
+        "Severa": -0.0279779214327939
+      },
+      "strongest_class": "Leve_Moderada",
+      "absolute_strength": 0.03661325715950625
+    }
+  ]
+}
